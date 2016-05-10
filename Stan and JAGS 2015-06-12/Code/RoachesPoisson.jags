@@ -1,0 +1,11 @@
+model {
+  # Model 
+  for(i in 1:N){
+    log(lambda[i]) <- log(exposure2[i]) + beta1 + beta2 * treatment[i] + beta3 * senior[i]
+    y[i] ~ dpois(lambda[i])
+  }
+  # Priors 
+  beta1 ~ dnorm(0.0, 0.0001) 
+  beta2 ~ dnorm(0.0, 0.0001)
+  beta3 ~ dnorm(0.0, 0.0001)
+}

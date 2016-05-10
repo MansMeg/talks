@@ -1,0 +1,1537 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+\setcounter{MaxMatrixCols}{10}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{graphicx}
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usecolortheme[named=LightSlateGray]{structure}
+%\usecolortheme[RGB={205,0,0}]{structure}
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{SverigesRiksbank.jpg}}
+%\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{Soedrahuset.jpg}}
+\useoutertheme{infolines}
+\usetheme[height=7mm]{Rochester}
+\setbeamertemplate{blocks}[shadow=true]
+%\useoutertheme{umbcfootline} 
+
+
+%\setbeamertemplate{blocks}[shadow=true]
+%\setbeamertemplate{background canvas}{
+%  \ifnum \thepage=1 \relax % we are on the first page
+%\includegraphics[width=\paperwidth,height=\paperheight]{/home/mv/Dropbox/Foton/IconsWallpaper/InsideLiuAlt.jpg}
+%  \else
+ 	% No background for page 2 and onwards
+%  \fi
+%}
+ 	
+\end_preamble
+\options xcolor=svgnames,handout
+\use_default_options false
+\begin_modules
+knitr
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman palatino
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Probabilistic programming languages for Bayesian inference in R
+\end_layout
+
+\begin_layout Author
+Måns Magnusson
+\end_layout
+
+\begin_layout Institute
+StiMa, Linköping University
+\end_layout
+
+\begin_layout Date
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<size='scriptsize',fig=TRUE,echo=FALSE,warning=FALSE,message=FALSE,comment='',p
+rompt=TRUE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Probabilistic programming languages
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+BUGS (
+\series bold
+B
+\series default
+ayesian inference 
+\series bold
+U
+\series default
+sing 
+\series bold
+G
+\series default
+ibbs 
+\series bold
+S
+\series default
+ampling)
+\end_layout
+
+\begin_layout Itemize
+JAGS (
+\series bold
+J
+\series default
+ust 
+\series bold
+A
+\series default
+nother 
+\series bold
+G
+\series default
+ibbs 
+\series bold
+S
+\series default
+ampler)
+\end_layout
+
+\begin_layout Itemize
+Stan (
+\series bold
+Stan
+\series default
+islaw Ulam)
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+When not to use
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Big Data 
+\end_layout
+
+\begin_layout Itemize
+Big Models 
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Why JAGS?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Easy to use (BUGS type)
+\end_layout
+
+\begin_layout Itemize
+Robust (version 4.x.x)
+\end_layout
+
+\begin_layout Itemize
+Wrappers for Python and R
+\end_layout
+
+\begin_layout Itemize
+No C++ compiler needed
+\end_layout
+
+\begin_layout Itemize
+Good starting point
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset CommandInset href
+LatexCommand href
+name "JAGS website"
+target "https://martynplummer.wordpress.com/"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Why Stan?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Easy to use (BUGS type)
+\end_layout
+
+\begin_layout Itemize
+Effective samplers/fast
+\end_layout
+
+\begin_layout Itemize
+Integrates nice with RStudio
+\end_layout
+
+\begin_layout Itemize
+Wrappers from Python, R, Matlab, Stata, Julia
+\end_layout
+
+\begin_layout Itemize
+Automatic/Black box variational inference
+\end_layout
+
+\begin_layout Itemize
+(Really) good documentation
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset CommandInset href
+LatexCommand href
+name "mc-stan.org"
+target "mc-stan.org"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Frame
+
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+The examples
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Bernoulli-Beta (Coin flips, conjugate)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Model:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+y_{i} & \sim & \mbox{Bern}(p)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Prior:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p\sim\mbox{Beta}(a,b)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Poisson regression (Number of roaches caught in buildings, non-conjugate)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Model:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\[
+y_{i}\sim Poisson(\log(\mbox{exposure})+\beta_{1}+\beta_{2}\cdot\mbox{treatment}+\beta_{3}\cdot\mbox{senior})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Prior:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\beta\sim\mbox{Norm}(0,1000)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Stan
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Needs C++ compiler - good installation instructions 
+\begin_inset CommandInset href
+LatexCommand href
+name "here"
+target "https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Six parts in a Stan model:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+data
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+transformed data
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+parameters
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+transformed parameters
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+model*
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+generated quantities
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Model in Stan: 
+\family typewriter
+data
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Read in data (for example from R or Python) once
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Only variable declarations
+\end_layout
+
+\begin_layout Itemize
+A lot of different data types
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+int
+\family default
+, 
+\family typewriter
+real
+\family default
+, 
+\family typewriter
+vector
+\family default
+, arrays, 
+\family typewriter
+matrix
+\family default
+ and more Stan specific (?) data types as 
+\family typewriter
+cholesky_factor_cov
+\family default
+ and 
+\family typewriter
+unit_vector
+\end_layout
+
+\end_deeper
+\begin_layout ExampleBlock
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Example of the 
+\backslash
+texttt{data} block
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+data {
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+int<lower=0> N; # The number of observations
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+int<lower=0> y; 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+vector[N] exposure2; 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+vector[N] senior; 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+vector[N] treatment; 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Model in Stan: 
+\family typewriter
+transformed data
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Variable declarations 
+\series bold
+and
+\series default
+ statements (done once)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+See chapter V in the documentation for all functions that can be used.
+\end_layout
+
+\begin_deeper
+\begin_layout ExampleBlock
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Example of the 
+\backslash
+texttt{transformed data} block
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+transformed data {
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+vector[N] log_expo;
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+log_expo <- log(exposure2); 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Model in Stan: 
+\family typewriter
+parameters
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Parameters (that should be sampled) 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Parameter declarations only.
+\end_layout
+
+\begin_deeper
+\begin_layout ExampleBlock
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Example of the 
+\backslash
+texttt{parameters} block
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+parameters {
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+vector[3] beta;
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Model in Stan: 
+\family typewriter
+transformed parameters
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Parameter declarations 
+\series bold
+and
+\series default
+ statements 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The transformations is done in each sampling step
+\end_layout
+
+\begin_deeper
+\begin_layout ExampleBlock
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Example of the 
+\backslash
+texttt{transformed parameters} block (not example model)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+transformed parameters {
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+real<lower=0> sigma;
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+sigma <- 1.0 / sqrt(tau);
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Model in Stan: 
+\family typewriter
+model
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Declare the priors and data with sampling statements ~
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Distributions can be found in chapter VI and VII in the documentation
+\end_layout
+
+\begin_deeper
+\begin_layout ExampleBlock
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Example of the 
+\backslash
+texttt{model} block
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+model {
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+// Priors 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+beta ~ normal(0.0, 1000.0); 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# Model 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+y ~ poisson_log(log_expo + beta[1] + beta[2] * treatment + beta[3]*senior);
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Model in Stan: 
+\family typewriter
+generated quantities
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Computations after the sampling has been done, used for
+\end_layout
+
+\begin_layout Itemize
+Is used for:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+model checking
+\end_layout
+
+\begin_layout Itemize
+predictive distributions for new data
+\end_layout
+
+\begin_layout Itemize
+applying full Bayesian decision theory
+\end_layout
+
+\begin_layout Itemize
+transforming parameters for reporting, etc
+\end_layout
+
+\begin_deeper
+\begin_layout ExampleBlock
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Example of the 
+\backslash
+texttt{generated quantities} block (not example model)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+generated quantities {
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+real my_weight_pred; 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+my_weight_pred <- alpha + beta * MySHeight + normal_rng(0,sigma); 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+How to specify a model in JAGS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+One parts in a JAGS model:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+model*
+\end_layout
+
+\begin_layout ExampleBlock
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Example of the 
+\backslash
+texttt{model} block
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+model {
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# Model 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+for( i in 1:N){
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+y[i] ~ dpois(lambda[i])
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+log(lambda[i]) <- log(exposure2[i]) + beta1 + beta2 * treatment[i] + beta3
+ * senior[i])
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# Priors 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+beta1 ~ dnorm(0.0, 0.0001) 
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+beta2 ~ dnorm(0.0, 0.0001)
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+beta3 ~ dnorm(0.0, 0.0001)
+\end_layout
+
+\begin_layout ExampleBlock
+
+\family typewriter
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+demo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+
+\family typewriter
+Demonstration
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

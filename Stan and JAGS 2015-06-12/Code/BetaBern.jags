@@ -1,0 +1,6 @@
+model {
+  for(i in 1:n) {
+    x[i] ~ dbin(p,1)
+  }
+  p ~ dbeta(a,b)
+}
