@@ -1,0 +1,3730 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+
+\setcounter{MaxMatrixCols}{10}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{graphicx}
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usecolortheme[named=LightSlateGray]{structure}
+%\usecolortheme[RGB={205,0,0}]{structure}
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{SverigesRiksbank.jpg}}
+%\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{Soedrahuset.jpg}}
+\useoutertheme{infolines}
+\usetheme[height=7mm]{boxes}
+\usefonttheme{serif}
+\setbeamertemplate{blocks}[shadow=true]
+%\useoutertheme{umbcfootline} 
+
+
+%\setbeamertemplate{blocks}[shadow=true]
+%\setbeamertemplate{background canvas}{
+%  \ifnum \thepage=1 \relax % we are on the first page
+%\includegraphics[width=\paperwidth,height=\paperheight]{/home/mv/Dropbox/Foton/IconsWallpaper/InsideLiuAlt.jpg}
+%  \else
+ 	% No background for page 2 and onwards
+%  \fi
+%}
+
+\usepackage{tikz}
+\usetikzlibrary{fit,positioning}
+ 	
+\end_preamble
+\options xcolor=svgnames
+\use_default_options false
+\begin_modules
+knitr
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman palatino
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Text mining and topic models
+\end_layout
+
+\begin_layout Author
+
+\series bold
+Måns Magnusson
+\end_layout
+
+\begin_layout Institute
+StiMa, Linköping University
+\end_layout
+
+\begin_layout Date
+2015-09-23
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Standard
+
+\lang swedish
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+# Paket
+\end_layout
+
+\begin_layout Plain Layout
+
+suppressMessages(library(bayesm))
+\end_layout
+
+\begin_layout Plain Layout
+
+suppressMessages(library(ggplot2))
+\end_layout
+
+\begin_layout Plain Layout
+
+suppressMessages(library(grid))
+\end_layout
+
+\begin_layout Plain Layout
+
+set.seed(20150923)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+library(devtools)
+\end_layout
+
+\begin_layout Plain Layout
+
+options(scipen = 10, digits = 3)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+source("https://gist.githubusercontent.com/tonglu/9947245/raw/c5334d6dc4af472a0056
+8259a9337b428f1afc80/multiplot.r")
+\end_layout
+
+\begin_layout Plain Layout
+
+source("su20150923_code.R")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Overview
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Section
+Text as data
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Text as data
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{columns}[t] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{column}{5cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /Users/manma97/Desktop/3502143020_6d149d2194_b.jpg
+	lyxscale 20
+	scale 15
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{column} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{column}{5cm} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Digital
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Abundant 
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Unstructured 
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+High-dimensional
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{column} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{columns}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Some definitions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Quotes eld
+\end_inset
+
+The lazy dog jumps over the fox.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Tokens
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+(Word) types
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Documents
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Corpus
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Vocabulary
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Natural language processing (NLP)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Computers and natural language
+\end_layout
+
+\begin_layout Itemize
+NLP is hard 
+\end_layout
+
+\begin_layout Itemize
+Computer science and computational linguistics
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Examples of NLP tasks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Machine translation
+\end_layout
+
+\begin_layout Itemize
+Part-of-speach tagging
+\end_layout
+
+\begin_layout Itemize
+Parse trees
+\end_layout
+
+\begin_layout Itemize
+Natural language generation
+\end_layout
+
+\begin_layout Itemize
+Text classification
+\end_layout
+
+\begin_layout Itemize
+Text summarization
+\end_layout
+
+\begin_layout Itemize
+Dialogue systems
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Deep and shallow NLP
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Deep NLP
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+complex and language specific - do not scale easily
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Shallow NLP
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+robust, less language specific and scales
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Text mining
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Shallow NLP
+\end_layout
+
+\begin_layout Itemize
+Statistical approach
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Supervised learning
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Text classification, Google flu trend
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Unsupervised learning
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Document clustering, topic model, word2vec
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Section
+Topic models
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+The distributional semantics hypothesis
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+"a word is characterized by the company it keeps" 
+\end_layout
+
+\begin_layout Quote
+\begin_inset CommandInset citation
+LatexCommand citet
+key "firth1957"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Distributional semantics
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Meaning comes from context
+\end_layout
+
+\begin_layout Quote
+\begin_inset Quotes eld
+\end_inset
+
+cold
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Quote
+\begin_inset Quotes eld
+\end_inset
+
+It's cold outside.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Quote
+\begin_inset Quotes eld
+\end_inset
+
+I'm having a cold
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Quote
+\begin_inset Quotes eld
+\end_inset
+
+I'm cold
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Different contexts (sentence, word windows, documents), different models
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Topic modeling
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Unsupervised model (basic model)
+\end_layout
+
+\begin_layout Itemize
+Learn 
+\begin_inset Quotes eld
+\end_inset
+
+topics
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+themes
+\begin_inset Quotes erd
+\end_inset
+
+ in a corpus
+\end_layout
+
+\begin_layout Itemize
+Context is document
+\end_layout
+
+\begin_layout Itemize
+Multiple topics per document 
+\begin_inset Flex Bold
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "[example]"
+target "http://www.aftonbladet.se/nyheter/article12227149.ab"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The most known model is 
+\series bold
+Latent dirichlet allocation
+\series default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "blei2003latent"
+
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Topic examples
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename blei_topics.pdf
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example topics from 17 000 articles in 
+\shape italic
+Science
+\shape default
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Blei2010"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Topic examples
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename blei_lda_illustration.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example topics from 17 000 articles in 
+\shape italic
+Science
+\shape default
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Blei2010"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Usage of topic models in the wild
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Analyzing topics/summarizing documents
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Using topics as features in other models
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Information retrieval tasks
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Documentation similarities - suggest documents
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Computer vision
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+And a lot of extensions...
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+The graphical model
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node
+ distance = 7mm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{connect}=[-latex, thick] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{box}=[rectangle, draw=black!100]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[main] (z) [label=below:$z$] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[main, fill = black!10] (w) [right=of z,label=below:$w$] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[main, xshift=10mm] (Phi) [right=of w,label=below:$
+\backslash
+phi_k$] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[main] (theta) [left=of z,label=below:$
+\backslash
+theta_d$] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[main, draw=none, fill=none] (beta) [right=of Phi] {$
+\backslash
+beta$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[main, draw=none, fill=none] (alpha) [left=of theta ] {$
+\backslash
+alpha$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+(z) edge [connect] (w)
+\end_layout
+
+\begin_layout Plain Layout
+
+(Phi) edge [connect] (w)
+\end_layout
+
+\begin_layout Plain Layout
+
+(beta) edge [connect] (Phi)
+\end_layout
+
+\begin_layout Plain Layout
+
+(theta) edge [connect] (z) 
+\end_layout
+
+\begin_layout Plain Layout
+
+(alpha) edge [connect] (theta);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[rectangle, inner sep=1mm, fit= (z) (w), label=below right:$N$, xshift=7mm,
+ yshift=1mm] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[rectangle, inner sep=1mm, fit= (Phi), label=below right:$K$, xshift=0mm,
+ yshift=0mm] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[rectangle, inner sep=1mm, fit= (theta) (z) (w) ,label=below left:$D$,
+ xshift=-16mm, yshift=0mm] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[rectangle, inner sep=5mm, draw=black!100, fit= (z) (w)] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[rectangle, inner sep=6mm, draw=black!100, fit = (theta) (z) (w)] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[rectangle, inner sep=6mm, draw=black!100, fit = (Phi)] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The LDA model
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-LDA-model"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Theta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Topic distribution over documents
+\end_layout
+
+\begin_layout Itemize
+Size: 
+\begin_inset Formula $D\times K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Theta=\begin{array}{c}
+\mbox{Doc 1}\\
+\mbox{Doc 2}\\
+\mbox{Doc 3}\\
+\mbox{Doc 4}\\
+\mbox{Doc 5}
+\end{array}\left[\begin{array}{ccc}
+0.3 & 0.2 & 0.5\\
+0.1 & 0.1 & 0.8\\
+0.1 & 0.7 & 0.2\\
+0.8 & 0.1 & 0.1\\
+0.2 & 0.6 & 0.2
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Phi$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Topic distribution over vocabulary
+\end_layout
+
+\begin_layout Itemize
+Size: 
+\begin_inset Formula $K\times V$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Phi=\begin{array}{c}
+\\
+\mbox{Topic 1}\\
+\mbox{Topic 2}\\
+\mbox{Topic 3}
+\end{array}\begin{array}{cccccc}
+\mbox{boat} & \mbox{shore} & \mbox{soccer} & \mbox{Zlatan} & \mbox{bank} & \mbox{money}\\
+0.4 & 0.4 & 0.01 & 0.03 & 0.15 & 0.01\\
+0.01 & 0.01 & 0.5 & 0.46 & 0.01 & 0.01\\
+0.01 & 0.01 & 0.01 & 0.01 & 0.48 & 0.48
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{z}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+One topic indicator per word
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{ccccccc}
+\mathbf{w}_{1} &  & \mbox{boat} & \mbox{shore} & \mbox{bank}\\
+\mathbf{z}_{1} &  & 1 & 1 & 1\\
+\mathbf{w}_{2} &  & \mbox{Zlatan} & \mbox{boat} & \mbox{shore} & \mbox{money} & \mbox{bank}\\
+\mathbf{z}_{2} &  & 2 & 1 & 1 & 3 & 3\\
+\mathbf{w}_{3} &  & \mbox{money} & \mbox{bank} & \mbox{soccer} & \mbox{money}\\
+\mathbf{z}_{3} &  & 3 & 3 & 2 & 3
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Recap: Dirichlet distribution
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Distribution over the simplex
+\end_layout
+
+\begin_layout Itemize
+Generalization of the beta distribution
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<1>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang swedish
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, fig.height=4>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+plt <- draw_dir_example()
+\end_layout
+
+\begin_layout Plain Layout
+
+multiplot(plotlist = plt, cols = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<2>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang swedish
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, fig.height=4>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+plt <- draw_dir_example()
+\end_layout
+
+\begin_layout Plain Layout
+
+multiplot(plotlist = plt, cols = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<3>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang swedish
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, fig.height=4>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+plt <- draw_dir_example()
+\end_layout
+
+\begin_layout Plain Layout
+
+multiplot(plotlist = plt, cols = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<4>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang swedish
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, fig.height=4>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+plt <- draw_dir_example()
+\end_layout
+
+\begin_layout Plain Layout
+
+multiplot(plotlist = plt, cols = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Generative model
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Bag of word
+\series default
+ assumption
+\end_layout
+
+\begin_layout Enumerate
+For each topic 
+\begin_inset Formula $k$
+\end_inset
+
+ in 
+\begin_inset Formula $K$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Sample topic-word distribution 
+\begin_inset Formula $\phi_{i}\sim\mbox{Dir}(\beta)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+For each document 
+\begin_inset Formula $d$
+\end_inset
+
+ in 
+\begin_inset Formula $D$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Sample the topic proportions 
+\begin_inset Formula $\theta\sim\mbox{Dir}(\alpha)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+For each word in document 
+\begin_inset Formula $d$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Sample topic indicator 
+\begin_inset Formula $z\sim\mbox{Multinomial}(\theta)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Sample word 
+\begin_inset Formula $w\sim\mbox{Multinomial}(\phi_{z})$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Simulate documents
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+We can easily simulate 
+\begin_inset Quotes eld
+\end_inset
+
+documents
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<1,2,3>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+res <- gen_doc(7, Phi=Phi, alpha=0.1, V = V)
+\end_layout
+
+\begin_layout Plain Layout
+
+print_theta(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<2,3>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+print_z(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<3>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+print_w(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<4,5,6>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+res <- gen_doc(7, Phi=Phi, alpha=1, V = V)
+\end_layout
+
+\begin_layout Plain Layout
+
+print_theta(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<5,6>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+print_z(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<6>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+print_w(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<7,8,9>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+res <- gen_doc(7, Phi=Phi, alpha=1, V = V)
+\end_layout
+
+\begin_layout Plain Layout
+
+print_theta(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<8,9>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+print_z(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+only<9>{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+print_w(res)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Section
+Inference in topic models
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Inference methods for topic models
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+We want to learn 
+\begin_inset Formula $\Phi$
+\end_inset
+
+, 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{z}$
+\end_inset
+
+ given our observations
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+Reverse the generative model
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Variational bayes (VB) 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand citet
+key "blei2003latent"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Markov chain monte carlo (Gibbs sampling)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Griffiths2004"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Bayesian learning
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Bayes theorem
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p(B|A)=\frac{p(A|B)\cdot p(B)}{p(B)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the topic model
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(\mathbf{z},\Theta,\Phi|\mathbf{w}) & = & \frac{p(\mathbf{z},\Theta,\Phi|\mathbf{w})\cdot p(\mathbf{z},\Theta,\Phi)}{p(\mathbf{w})}\\
+ & \propto & p(\mathbf{z},\Theta,\Phi|\mathbf{w})\cdot p(\mathbf{z},\Theta,\Phi)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Bayesian learning
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Integrating out (collapsing) 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ and 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Griffiths2004"
+
+\end_inset
+
+):
+\begin_inset Formula 
+\begin{eqnarray*}
+p(\mathbf{z}|\mathbf{w}) & = & \int\int p(\mathbf{z},\Theta,\Phi|\mathbf{w})\cdot p(\mathbf{z},\Theta,\Phi)d\mbox{\Phi}d\mbox{\Theta}
+\end{eqnarray*}
+
+\end_inset
+
+will result in the following gibbs sampler
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p(z_{i}=k|w_{i},\mathbf{z}_{\lnot i})=\underbrace{\frac{n_{k,v_{i}}^{(w)}+\beta}{n_{k,\cdot}^{(w)}+V\beta}}_{type-topic\mbox{ }\mbox{(\Phi)}}\cdot\underbrace{(n_{k,d_{i}}^{(d)}+\alpha)}_{topic-doc\mbox{ }\mbox{(\Theta)}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $n^{(w)}$
+\end_inset
+
+ and 
+\begin_inset Formula $n^{(d)}$
+\end_inset
+
+ are count matrices.
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Example of 
+\begin_inset Formula $n^{(w)}$
+\end_inset
+
+ and 
+\begin_inset Formula $n^{(d)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{ccccccc}
+\mathbf{w}_{1} &  & \mbox{boat} & \mbox{shore} & \mbox{bank}\\
+\mathbf{z}_{1} &  & 1 & 1 & 1\\
+\mathbf{w}_{2} &  & \mbox{Zlatan} & \mbox{boat} & \mbox{shore} & \mbox{money} & \mbox{bank}\\
+\mathbf{z}_{2} &  & 2 & 1 & 1 & 3 & 3\\
+\mathbf{w}_{3} &  & \mbox{money} & \mbox{bank} & \mbox{soccer} & \mbox{money}\\
+\mathbf{z}_{3} &  & 3 & 3 & 2 & 3
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+n^{(w)}=\begin{array}{cccccc}
+\mbox{boat} & \mbox{shore} & \mbox{soccer} & \mbox{Zlatan} & \mbox{bank} & \mbox{money}\\
+2 & 2 & 0 & 0 & 1 & 0\\
+0 & 0 & 1 & 1 & 0 & 0\\
+0 & 0 & 0 & 0 & 2 & 2
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+n^{(d)}=\left[\begin{array}{ccc}
+3 & 0 & 0\\
+2 & 1 & 3\\
+0 & 2 & 3
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Algorithm
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+LDA_gibbs(
+\series bold
+w
+\series default
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+# Initialization
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+Sample all topic indicators randomly
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+Calculate n^(w) and n^(d)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+# Gibbs sampler
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+for each
+\series default
+ gibbs iteration 
+\series bold
+do
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \qquad{}
+\end_inset
+
+
+\series bold
+for each
+\series default
+ token w_i 
+\series bold
+do
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+remove z_i from n^(w) and n^(d)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\series bold
+for each
+\series default
+ k in 1 to K 
+\series bold
+do
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+prob_k[k] = 
+\begin_inset Formula $\frac{n_{k,v_{i}}^{(w)}+\beta}{n_{k,\cdot}^{(w)}+V\beta}\cdot(n_{k,d_{i}}^{(d)}+\alpha)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\series bold
+end for
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+z_i <- draw multinomial(prob_k)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+add z_i to n^(w) and n^(d)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+\begin_inset space \qquad{}
+\end_inset
+
+end for
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+end for
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+return n^(w), n^(d)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Basic algorithm
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Highly serial
+\end_layout
+
+\begin_layout Itemize
+Computational complexity is 
+\begin_inset Formula $O(K)$
+\end_inset
+
+ for each token
+\end_layout
+
+\begin_layout Itemize
+Slow for larger corpuses...
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Section
+Scaling topic models
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Big models
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Big corpuses today (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Yuan:2015:LBT:2736277.2741115"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dataset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $V$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $N$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $D$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+NYTimes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+101K
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+99M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300K
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+PubMed
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+140K
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+737M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8.2M
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+BingWebC
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+200B
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.2B
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+How to handle
+\series bold
+ big 
+\series default
+corpuses:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Parallelism
+\end_layout
+
+\begin_layout Itemize
+Improve algorithm speed
+\end_layout
+
+\begin_layout Itemize
+Subsampling
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Parallel topic models
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Approximately distributed LDA 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand citet
+key "newman2009distributed"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Ignore that the sampler is serial
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+We want:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A (correct) parallel sampler
+\end_layout
+
+\begin_layout Itemize
+Should work well when 
+\begin_inset Formula $D\rightarrow\infty$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Problem:
+\series default
+ Integrating out 
+\series bold
+both
+\series default
+ 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ and 
+\begin_inset Formula $\Phi$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+But:
+\series default
+ sampling 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ and 
+\begin_inset Formula $\Phi$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+is costly
+\end_layout
+
+\begin_layout Itemize
+decreases efficiency of the MCMC chain
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Properties of 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ and 
+\begin_inset Formula $\Phi$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\Phi$
+\end_inset
+
+ is 
+\begin_inset Formula $K\times V$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Theta$
+\end_inset
+
+ is 
+\begin_inset Formula $D\times K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+What happen when 
+\begin_inset Formula $D\rightarrow\infty$
+\end_inset
+
+ (i.e 
+\begin_inset Formula $N\rightarrow\infty$
+\end_inset
+
+)
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $K\approx O(\log(N))$
+\end_inset
+
+ (or less than 
+\begin_inset Formula $V$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $D\approx O(N)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $V\approx O(\mbox{\sqrt{N}})$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+We want to integrate out 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ that grows faster
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Heaps law?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Empirical law of language
+\begin_inset Formula 
+\[
+V(N)=\kappa N^{\gamma}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\gamma\approx\frac{1}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Heaps_law_plot.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Heaps law (picture from Wikipedia)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+The partially collapsed sampler
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p(z_{i}=k|w_{i},\mathbf{z}_{\lnot i})=\underbrace{\phi_{k,w_{i}}}_{type-topic}\cdot(\underbrace{n_{k}^{(d_{i})}+\alpha)}_{topic-doc\mbox{ }\mbox{(\Theta)}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+in parallel over documents, and then 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\phi_{k}\sim\mbox{Dir}(n_{k}^{(w)}+\beta)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+in parallel over topics
+\end_layout
+
+\end_deeper
+\begin_layout Frame
+
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Some extra tricks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Walker-Alias method (see
+\begin_inset CommandInset citation
+LatexCommand citet
+key "li2014reducing"
+
+\end_inset
+
+) and sparsity in 
+\begin_inset Formula $n^{(d)}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(z_{i}=k|w_{i},\mathbf{z}_{\lnot i}) & = & \phi_{k,w_{i}}\cdot\left(n_{k}^{(d_{i})}+\alpha\right)\\
+ & = & \phi_{k,w_{i}}n_{k}^{(d_{i})}+\phi_{k,w_{i}}\alpha
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Cashed Marsaglia gamma sampling (see 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Marsaglia:2000:SMG:358407.358414"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Job stealing
+\end_layout
+
+\end_deeper
+\begin_layout Frame
+
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/manma97/Dropbox/Doktorandstudier/Forskning/PCLDA/Article/article_figures/fig_admode_arXiv_nips_100.pdf
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Effect of approximating MCMC 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "magnusson2015parallelizing"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Frame
+
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/manma97/Dropbox/Doktorandstudier/Forskning/PCLDA/Article/article_figures/fig_pubmed.pdf
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Inference in big models 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "magnusson2015parallelizing"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Frame
+
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/manma97/Dropbox/Doktorandstudier/Forskning/PCLDA/Article/article_figures/realSpeedup.pdf
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Speedup of PC-LDA and sparse AD-LDA 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "magnusson2015parallelizing"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Frame
+
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Summary of findings
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Approximate distributed LDA can lead to the wrong model
+\end_layout
+
+\begin_layout Itemize
+Distributing topic models using partially collapsed sampling
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+can be fast (depend on 
+\begin_inset Formula $K$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+can handle big corpuses
+\end_layout
+
+\begin_layout Itemize
+can model 
+\begin_inset Formula $\Phi$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+is not necessarily less effective
+\end_layout
+
+\begin_layout Itemize
+is correct
+\end_layout
+
+\begin_layout Itemize
+seems to explore the posterior better
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+References
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "LinStat2014_references,PhDWS2015,SU_references"
+options "elsarticle-harv"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\end_body
+\end_document
