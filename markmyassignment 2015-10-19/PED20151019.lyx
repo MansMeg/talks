@@ -1,0 +1,780 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+
+\setcounter{MaxMatrixCols}{10}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{graphicx}
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usecolortheme[named=LightSlateGray]{structure}
+%\usecolortheme[RGB={205,0,0}]{structure}
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{SverigesRiksbank.jpg}}
+%\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{Soedrahuset.jpg}}
+\useoutertheme{infolines}
+\usetheme[height=7mm]{boxes}
+\usefonttheme{serif}
+\setbeamertemplate{blocks}[shadow=true]
+%\useoutertheme{umbcfootline} 
+
+
+%\setbeamertemplate{blocks}[shadow=true]
+%\setbeamertemplate{background canvas}{
+%  \ifnum \thepage=1 \relax % we are on the first page
+%\includegraphics[width=\paperwidth,height=\paperheight]{/home/mv/Dropbox/Foton/IconsWallpaper/InsideLiuAlt.jpg}
+%  \else
+ 	% No background for page 2 and onwards
+%  \fi
+%}
+
+\usepackage{tikz}
+\usetikzlibrary{fit,positioning}
+ 	
+\end_preamble
+\options xcolor=svgnames
+\use_default_options false
+\begin_modules
+knitr
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman palatino
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\family typewriter
+markmyassignment
+\end_layout
+
+\begin_layout Author
+
+\series bold
+Måns Magnusson
+\end_layout
+
+\begin_layout Institute
+StiMa, Linköping University
+\end_layout
+
+\begin_layout Date
+2015-10-19
+\end_layout
+
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Standard
+
+\lang swedish
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<echo=FALSE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+# Paket
+\end_layout
+
+\begin_layout Plain Layout
+
+suppressMessages(library(ggplot2))
+\end_layout
+
+\begin_layout Plain Layout
+
+set.seed(20151019)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+library(devtools)
+\end_layout
+
+\begin_layout Plain Layout
+
+options(scipen = 10, digits = 3)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#source("https://gist.githubusercontent.com/tonglu/9947245/raw/c5334d6dc4af472a005
+68259a9337b428f1afc80/multiplot.r")
+\end_layout
+
+\begin_layout Plain Layout
+
+#source("su20150923_code.R")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Vetenskaplig/statistisk programmering
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Forskare spenderar 30% av sin tid med att programmera 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "wilson2014best"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Exempel:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Sammanställa/bearbeta data
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Visualisera data
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Statistisk analys
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Författa artiklar
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Sker inkrementelt/explorativt
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Krav på reproducerbarhet
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Programmeringsdidaktik
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Programmering är svårt att lära in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "milne2002difficulties"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+många delar:
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Syntax
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Problemlösning
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Helhet
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+kräver djupinlärning
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+många avhopp 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "milne2002difficulties"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+många når inte inlärningsmålen 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "milne2002difficulties"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Studenters inlärningsstrategier 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "milne2002difficulties"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Stoppers 
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Tinkerers
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Movers (djupinlärning)
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Vårt mål
+\series default
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Tinkerers, Stoppers 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ Movers
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Automatisk återkoppling vid laborationer
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Testsuite som studenterna kan köra själva
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Återkoppling i form av (förståerliga) felmeddelanden
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Målet:
+\series default
+ Tinkerers, Stoppers 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ Movers
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Men också...
+ mindre tid på dumt lärarjobb (rätta labbar)
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+På annat håll
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+IDA 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "heintz2013aaterkoppling"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+KTH 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "enstrom2011five"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+markmyassignment
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Automatisk återkoppling i R
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Distribuerat (R-paket)
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+GitHub och testthat unit test suite
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Kan användas oavsett när kursen går (inför omtentor)
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Preliminära resultat
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Prövats i 732G33 och 732A50
+\end_layout
+
+\begin_layout Itemize
+Utvärdering (KURT):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+78% angav att 
+\family typewriter
+markmyassignment
+\family default
+ underlättat deras inlärning
+\end_layout
+
+\begin_layout Itemize
+100% ansåg att 
+\family typewriter
+markmyassignment
+\family default
+ skulle behållas i kursen
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Framtiden
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Utvecklas till produktionssäkert paket
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Förbättrad dokumentation
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Automatisk generation av testsuite från en given lösning
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Bättre återkoppling till studenter (svårt)
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Publikation (R conference)
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Randomiserade försök i MOOC vid KI
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+References
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "PED_references"
+options "elsarticle-harv"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Separator
+
+\end_layout
+
+\end_body
+\end_document
