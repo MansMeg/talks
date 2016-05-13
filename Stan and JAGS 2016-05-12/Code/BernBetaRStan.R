@@ -3,7 +3,7 @@ rm(list=ls())
 
 library(rstan)
 
-code_folder <- "Stan and JAGS 2015-06-12/Code/"
+code_folder <- "Stan and JAGS 2016-05-12/Code/"
 
 # Data 
 x = c(1,1,0,0,1,1,1,1,0,1)

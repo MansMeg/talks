@@ -2,8 +2,8 @@ rm(list=ls())
 
 library(rjags)
 
-code_folder <- "Stan and JAGS 2015-06-12/Code/"
-data_folder <- "Stan and JAGS 2015-06-12/Data/"
+code_folder <- "Stan and JAGS 2016-05-12/Code/"
+data_folder <- "Stan and JAGS 2016-05-12/Data/"
 
 # Data 
 roachesData<-read.csv2(file.path(data_folder, "roachdata.csv"))
@@ -29,5 +29,5 @@ jagsDraws <- jags.samples(jags, c('beta1', 'beta2', 'beta3'), 1000)
 
 # Analyze posterior results
 str(jagsDraws)
-summary(as.vector(jagsDraws$beta2))
-hist(jagsDraws$beta2)
+summary(as.vector(jagsDraws$beta3))
+hist(jagsDraws$beta3)

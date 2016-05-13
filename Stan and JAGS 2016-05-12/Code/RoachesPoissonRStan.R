@@ -3,8 +3,8 @@ rm(list=ls())
 library(rstan)
 library(ggplot2)
 
-code_folder <- "Stan and JAGS 2015-06-12/Code/"
-data_folder <- "Stan and JAGS 2015-06-12/Data/"
+code_folder <- "Stan and JAGS 2016-05-12/Code/"
+data_folder <- "Stan and JAGS 2016-05-12/Data/"
 
 
 # Data 
